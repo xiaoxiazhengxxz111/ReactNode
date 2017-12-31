@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 
 app.get('/', (req, res) => {
-  res.send({hi: "againe app"})
+  res.send({hi: "deploy app to heroku"})
 })
 
 const PORT = process.env.PORT || 5000
