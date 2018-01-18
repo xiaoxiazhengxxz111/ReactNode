@@ -18,15 +18,25 @@ passport.use(new GoogleStrategy({
     clientSecret: keys.googleClientSecret,
     callbackURL: '/auth/google/callback',
     proxy: true
-}, (accesToken, refreshToken, profile, done) => {
-    User.findOne({googleId:profile.id})
-    .then((userExsited) => {
-        if (userExsited){
-            done(null, userExsited) // all fine and here is userExsited
-        } else {
-            new User({googleId: profile.id})
-              .save()
-              .then( newUser => done(null, newUser))
-        } 
+}, async (accesToken, refreshToken, profile, done) => {
+    const userExsited =  await User.findOne({googleId:profile.id})
+      if (userExsited){ 
+        return done(null, userExsited) //return keyword: if all fine, no need to execute everything after
+      } 
+      const newUser = await new User({googleId: profile.id}).save()
+      done(null, newUser)      
     })    
-}))
+)
+
+// (accesToken, refreshToken, profile, done) => {
+//   User.findOne({googleId:profile.id})
+//   .then((userExsited) => {
+//       if (userExsited){
+//           done(null, userExsited) // all fine and here is userExsited
+//       } else {
+//           new User({googleId: profile.id})
+//             .save()
+//             .then( newUser => done(null, newUser))
+//       } 
+//   })    
+// }
