@@ -5,7 +5,11 @@ class Landing extends Component {
 
   render() {
     return (
-      <h2>Landing page: client</h2>
+      <div>
+        <h2>Emaily</h2>
+        <p>Collect feedback info</p>
+      </div>
+      
     )
   }
 }
