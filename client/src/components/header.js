@@ -9,7 +9,7 @@ class Header extends Component {
       case false:
         return <li><a href="/auth/google">Login with Google</a></li>
       default:
-        return <li><a>Login out</a></li>
+        return <li><a href="/api/logout">Login out</a></li>
     }
   }
   render() {

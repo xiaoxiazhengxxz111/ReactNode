@@ -1,4 +1,3 @@
-// import React from 'react'
 import React, { Component } from 'react';
 import {BrowserRouter, Route} from 'react-router-dom'
 import {connect} from 'react-redux'
@@ -22,8 +21,8 @@ class App extends Component {
           <div>
             <Header />
             <Route exact path="/" component={Landing} />
+            <Route exact path="/survays" component={Dashboard} />
             <Route exact path="/survays/new" component={Survays} />
-            <Route exact path="/dashboard" component={Dashboard} />
           </div>
         </BrowserRouter>
       </div>
@@ -31,7 +30,7 @@ class App extends Component {
   }
 }
 
-export default connect(null, actions)(App)
+export default connect(null, actions)(App);
 
 // import React, { Component } from 'react';
 // import { BrowserRouter, Route } from 'react-router-dom';

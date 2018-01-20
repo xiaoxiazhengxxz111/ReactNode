@@ -12,7 +12,8 @@ const app = express()
 
 
 
-// Middleware
+// Middleware: to handler all incoming requests before 
+// forward to router handler
 app.use(cookieSession({
     maxAge: 5*60*60*1000,
     keys: [keys.cookieSessionKey] // to encrypt the cookie

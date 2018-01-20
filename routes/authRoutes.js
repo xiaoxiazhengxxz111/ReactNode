@@ -6,11 +6,17 @@ module.exports = (app) => {
         {scope: ['profile', 'email']}
     ))
     
-    app.get('/auth/google/callback', passport.authenticate('google'))
+    app.get('/auth/google/callback', 
+      passport.authenticate('google'),
+      (req, res) => {
+        res.redirect('/survays')
+      }
+    )
 
     app.get('/api/logout', (req, res) => {
       req.logout() // take the cookie to kill userId
-      res.send(req.user)
+      // res.send(req.user)
+      res.redirect('/')
     })
 
     app.get('/api/currentuser', (req, res) =>{
