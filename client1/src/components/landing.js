@@ -5,7 +5,7 @@ class Landing extends Component {
 
   render() {
     return (
-      <h2>Landing page: client</h2>
+      <h2>Landing page: client1</h2>
     )
   }
 }
