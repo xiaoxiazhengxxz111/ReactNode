@@ -12,7 +12,6 @@ import Dashboard from './dashboard'
 
 class App extends Component {
   componentDidMount() {
-    // can't fetchUser bugggggg
     this.props.fetchUser()
   }
 
