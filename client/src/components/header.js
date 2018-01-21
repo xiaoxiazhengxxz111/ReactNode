@@ -14,6 +14,8 @@ class Header extends Component {
         return [
           <div key="0">
             <li key="1"><Payment /></li>
+            <li key="3">Credits: {this.props.auth.credits}</li>
+            {/* credits come from server useModel */}
             <li key="2"><a href="/api/logout">Login out</a></li>
           </div>
         ]        
