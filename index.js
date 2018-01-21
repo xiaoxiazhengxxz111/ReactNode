@@ -23,5 +23,18 @@ app.use(passport.session()) // tell cookie to manager auth
 require('./routes/authRoutes')(app)
 require('./routes/billingRoutes')(app)
 
+// heroku: for the production: to handle some routes the express server doesn't know
+if( process.env.NODE_ENV === 'production') {
+  // epxress will serve up production assets
+  // like main.js file or main.css file
+  app.use(express.static('client/build'))
+
+  // express will serve up the index.html file if it doesn't recognize the route
+  const path = require('path')
+  app.get('*', (req, res) => {
+    res.sendfile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+  })
+}
+
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {console.log('listen to port 5000...')})
