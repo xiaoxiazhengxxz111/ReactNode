@@ -11,6 +11,7 @@ module.exports = (app) => {
   // update and save the charge to userModel
   // send the update user back to client
   app.post('/api/stripe', requireLogin, async (req, res) => {
+    // console.log('req.body', req.body)
     const charge = await stripe.charges.create({
       amount: 500,
       currency: "usd",
