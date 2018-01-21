@@ -4,7 +4,10 @@ const cookieSession = require('cookie-session')
 const passport = require('passport')
 const keys = require('./config/keys')
 const bodyParser = require('body-parser')
+
+// models
 require('./models/users')
+require('./models/Survey')
 require('./services/passport')
 
 mongoose.connect(keys.mongodbURI)
