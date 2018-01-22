@@ -1,3 +1,4 @@
+// libries
 const express = require('express')
 const mongoose = require('mongoose')
 const cookieSession = require('cookie-session')
@@ -10,11 +11,13 @@ require('./models/users')
 require('./models/Survey')
 require('./services/passport')
 
+// DB set up
 mongoose.connect(keys.mongodbURI)
 
 const app = express()
 
-// App leverl Middleware: to handler all incoming requests before forward to router handler
+// App leverl Middleware: 
+// to handler all incoming requests before forward to router handler
 app.use(bodyParser.json()) // parser all kinds of incoming requests and assigne to req.body properties
 app.use(cookieSession({
     maxAge: 5*60*60*1000,
@@ -23,9 +26,12 @@ app.use(cookieSession({
 app.use(passport.initialize())
 app.use(passport.session()) // tell cookie to manager auth
 
+// route handlers
 require('./routes/authRoutes')(app)
 require('./routes/billingRoutes')(app)
+require('./routes/surveyRoutes')(app)
 
+// environment variables
 // heroku: for the production: to handle some routes the express server doesn't know
 if( process.env.NODE_ENV === 'production') {
   // epxress will serve up production assets
