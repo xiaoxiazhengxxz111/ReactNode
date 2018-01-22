@@ -4,12 +4,13 @@ import React, { Component } from 'react'
 import { reduxForm, Field } from 'redux-form'
 import {Link} from 'react-router-dom'
 import SurveyField from './SurveyField'
+import validateEmail from '../../utils/validateEmail'
 
 const FIELDS = [
-  {label: 'Survey Title', name: 'title'},
-  {label: 'Survey Line', name: 'Line'},
-  {label: 'Email Body', name: 'email'},
-  {label: 'Recipients List', name: 'emails'},
+  {label: 'Survey Title', name: 'title', noValueError: 'You must provide a title'},
+  {label: 'Survey Line', name: 'subject', noValueError: 'You must provide a subject'},
+  {label: 'Email Body', name: 'body', noValueError: 'You must provide a content'},
+  {label: 'Recipients List', name: 'emails', noValueError: ''},
 ]
 
 class SurveyForm extends Component {
@@ -41,7 +42,33 @@ class SurveyForm extends Component {
   }
 }
 
+function validate(values) {
+  const errors = {}
+  // if (!values.title){
+  //   errors.title = 'You must provide a title'
+  // }
+  // if (!values.subject){
+  //   errors.subject = 'You must provide a subject'
+  // }
+  // if (!values.body){
+  //   errors.body = 'You must provide a body'
+  // }
+
+  errors.emails = validateEmail(values.emails || '')
+  _.each(FIELDS, ({name}) => {
+    // value[name]: the value, value.name: the property
+    if (!values[name]) {
+      errors[name] = 'You must provide a value'
+    }
+  })
+
+  
+
+  return errors;
+}
+
 // reduxForm(==connect) is a helper from redux-form
 export default reduxForm({
+  validate,
   form: 'surveyForm'
 })(SurveyForm)
