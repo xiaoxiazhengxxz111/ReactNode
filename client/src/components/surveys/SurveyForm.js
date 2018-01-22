@@ -5,17 +5,12 @@ import { reduxForm, Field } from 'redux-form'
 import {Link} from 'react-router-dom'
 import SurveyField from './SurveyField'
 import validateEmail from '../../utils/validateEmail'
+import formFields from './formFields'
 
-const FIELDS = [
-  {label: 'Survey Title', name: 'title', noValueError: 'You must provide a title'},
-  {label: 'Survey Line', name: 'subject', noValueError: 'You must provide a subject'},
-  {label: 'Email Body', name: 'body', noValueError: 'You must provide a content'},
-  {label: 'Recipients List', name: 'emails', noValueError: ''},
-]
 
 class SurveyForm extends Component {
   renderFields() {
-    return _.map(FIELDS, ({label, name}) => {
+    return _.map(formFields, ({label, name}) => {
       return (
         <Field key={name} label={label} type="text" name={name} component={SurveyField}/>
       )
@@ -24,7 +19,7 @@ class SurveyForm extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.props.handleSubmit(values => {console.log(values)})}>
+        <form onSubmit={this.props.handleSubmit(this.props.onSurveyFormSubmit)}>
           {/* <Field type="text" name="title" component="input" /> */}
           {/* <Field label="Survey Title" type="text" name="title" component={SurveyField}/>
           <Field label="Survey Line" type="text" name="Line" component={SurveyField}/>
@@ -54,21 +49,19 @@ function validate(values) {
   //   errors.body = 'You must provide a body'
   // }
 
-  errors.emails = validateEmail(values.emails || '')
-  _.each(FIELDS, ({name}) => {
+  errors.recipients = validateEmail(values.recipients || '')
+  _.each(formFields, ({name}) => {
     // value[name]: the value, value.name: the property
     if (!values[name]) {
       errors[name] = 'You must provide a value'
     }
   })
-
-  
-
   return errors;
 }
 
-// reduxForm(==connect) is a helper from redux-form
+// helper from redux-form
 export default reduxForm({
   validate,
-  form: 'surveyForm'
+  form: 'surveyForm', // another sub form under store state.form
+  destroyOnUnmount: false
 })(SurveyForm)

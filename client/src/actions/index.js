@@ -25,3 +25,12 @@ export const handleStripeToken = (token) => async dispatch => {
   // console.log('handleStripeToken res', res)
   dispatch({type: FETCH_USER, payload: res.data})
 }
+
+// call action creator with form values, history
+export const submitSurvey = (values, history) => async dispatch => {  
+  // post form value to API
+  const res = await axios.post('/api/surveys', values) 
+  // post successful ? redirect user back to /surveys
+  history.push('/surveys')
+  dispatch({type: FETCH_USER, payload: res.data})
+}
