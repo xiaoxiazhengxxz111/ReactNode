@@ -3,7 +3,7 @@ const  { Schema } = mongoose
 
 const recipientSchema = new Schema({
     email: String,
-    responde: {type: Boolean, default:false}
+    responded: {type: Boolean, default:false}
 })
 
 // as subDoc
